@@ -137,8 +137,15 @@ window.onload = function() {
 
     // Function to check if the game is over based on the new rules
     function isGameOver() {
-        // Game ends when one player reaches 10 points (best of 10)
-        return userScore >= WINNING_SCORE || computerScore >= WINNING_SCORE;
+        // Game ends when one player reaches 10 points AND has a lead of at least 2 points
+        // This handles tie situations like 10-10, 11-11, etc.
+        if (userScore >= WINNING_SCORE && userScore - computerScore >= 2) {
+            return true;
+        }
+        if (computerScore >= WINNING_SCORE && computerScore - userScore >= 2) {
+            return true;
+        }
+        return false;
     }
     
     // Function to handle the end of the game series
