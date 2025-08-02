@@ -13,7 +13,7 @@ window.onload = function() {
     // Initialize scores and game state
     let userScore = 0;
     let computerScore = 0;
-    const WINNING_SCORE = 3; // The score needed to win the series
+    const WINNING_SCORE = 10; // The score needed to win the series (best of 10)
 
     // Mapping for choices to emojis
     const choicesMap = {
@@ -137,15 +137,8 @@ window.onload = function() {
 
     // Function to check if the game is over based on the new rules
     function isGameOver() {
-        // If the score is tied at 2-2, the game is not over.
-        if (userScore === 2 && computerScore === 2) {
-            return false;
-        }
-        
-        // Normal win condition: one player reaches 3 points.
-        // Or, if it's past 2-2, a player wins by a lead of 2.
-        return (userScore >= WINNING_SCORE && userScore - computerScore >= 2) || 
-               (computerScore >= WINNING_SCORE && computerScore - userScore >= 2);
+        // Game ends when one player reaches 10 points (best of 10)
+        return userScore >= WINNING_SCORE || computerScore >= WINNING_SCORE;
     }
     
     // Function to handle the end of the game series
