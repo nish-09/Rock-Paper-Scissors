@@ -187,3 +187,44 @@ window.onload = function() {
     resetButton.addEventListener('click', resetGame);
     playAgainButton.addEventListener('click', resetGame);
 };
+
+// Cursor ring functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const cursorRing = document.createElement('div');
+    cursorRing.className = 'cursor-ring';
+    document.body.appendChild(cursorRing);
+
+    // Update cursor ring position with requestAnimationFrame for smoother tracking
+    let ticking = false;
+    
+    function updateCursorRing(e) {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                cursorRing.style.left = e.clientX + 'px';
+                cursorRing.style.top = e.clientY + 'px';
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+
+    document.addEventListener('mousemove', updateCursorRing, { passive: true });
+
+    // Add hover effects for interactive elements
+    const interactiveElements = document.querySelectorAll('.choice-button, .reset-button, .play-again-button');
+    
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            cursorRing.classList.add('cursor-ring-hover');
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            cursorRing.classList.remove('cursor-ring-hover');
+        });
+    });
+
+    // Hide cursor ring on touch devices
+    if ('ontouchstart' in window) {
+        cursorRing.style.display = 'none';
+    }
+});

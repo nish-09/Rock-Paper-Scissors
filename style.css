@@ -25,8 +25,44 @@ body {
     color: var(--dark-text);
     padding: 20px;
     box-sizing: border-box;
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%236C5CE7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M21 3L3 21"/></svg>') 12 12, auto;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="%236C5CE7"/><circle cx="8" cy="8" r="1.5" fill="white"/></svg>') 8 8, auto;
+    position: relative;
 }
+
+/* Cursor ring styles */
+.cursor-ring {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+    transition: all 0.05s ease;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-ring-hover {
+    border-color: var(--secondary-color);
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.2);
+    transition: all 0.05s ease;
+}
+
+/* Hide cursor ring on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .cursor-ring {
+        display: none;
+    }
+}
+
+/* Remove the body::after cursor ring since we're using JavaScript */
+body::after {
+    display: none;
+}
+
+/* JavaScript will handle cursor movement */
 
 .game-container {
     background: var(--light-text);
@@ -81,6 +117,23 @@ h1 {
     font-size: 2.5rem;
     font-weight: 700;
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%236C5CE7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>') 10 10, text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.game-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.game-logo:hover {
+    transform: scale(1.1);
 }
 
 /*
@@ -249,6 +302,11 @@ h1 {
         font-size: 2.2rem;
     }
 
+    .game-logo {
+        width: 50px;
+        height: 50px;
+    }
+
     .rules-container h2 {
         font-size: 1.8rem;
     }
@@ -288,6 +346,12 @@ h1 {
 
     h1 {
         font-size: 2rem;
+        gap: 0.8rem;
+    }
+
+    .game-logo {
+        width: 45px;
+        height: 45px;
     }
 
     .rules-container h2 {
@@ -345,6 +409,12 @@ h1 {
     h1 {
         font-size: 1.8rem;
         margin-bottom: 0.8rem;
+        gap: 0.6rem;
+    }
+
+    .game-logo {
+        width: 40px;
+        height: 40px;
     }
 
     .rules-container h2 {
@@ -396,6 +466,12 @@ h1 {
 
     h1 {
         font-size: 1.6rem;
+        gap: 0.5rem;
+    }
+
+    .game-logo {
+        width: 35px;
+        height: 35px;
     }
 
     .rules-container h2 {
@@ -930,66 +1006,66 @@ h1 {
  * Custom Cursors
  */
 body {
-    cursor: default;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="%236C5CE7"/><circle cx="8" cy="8" r="1.5" fill="white"/></svg>') 8 8, auto;
 }
 
-/* Game buttons with simple pointer cursor */
+/* Game buttons with custom dot cursor */
 .choice-button {
-    cursor: pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%236C5CE7"/><circle cx="10" cy="10" r="2" fill="white"/></svg>') 10 10, pointer;
 }
 
 .choice-button:hover {
-    cursor: pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4" fill="%237D6BEF"/><circle cx="10" cy="10" r="2" fill="white"/></svg>') 10 10, pointer;
 }
 
 /* Reset and play again buttons */
 .reset-button, .play-again-button {
-    cursor: pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="3.5" fill="%234A4A6A"/><circle cx="9" cy="9" r="1.8" fill="white"/></svg>') 9 9, pointer;
 }
 
 .reset-button:hover, .play-again-button:hover {
-    cursor: pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="3.5" fill="%235A5A80"/><circle cx="9" cy="9" r="1.8" fill="white"/></svg>') 9 9, pointer;
 }
 
 /* Disabled state cursor */
 .choice-button:disabled,
 .reset-button:disabled,
 .play-again-button:disabled {
-    cursor: not-allowed;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="%23ccc"/><circle cx="8" cy="8" r="1.5" fill="white"/></svg>') 8 8, not-allowed;
 }
 
 /* Text selection cursor */
 h1, h2, h3, p, li, span {
-    cursor: text;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="2.5" fill="%236C5CE7"/><circle cx="7" cy="7" r="1.2" fill="white"/></svg>') 7 7, text;
 }
 
 /* Scrollbar cursor */
 ::-webkit-scrollbar-thumb {
-    cursor: grab;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="%236C5CE7"/><circle cx="6" cy="6" r="1.2" fill="white"/></svg>') 6 6, grab;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    cursor: grabbing;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.5" fill="%237D6BEF"/><circle cx="6" cy="6" r="1.2" fill="white"/></svg>') 6 6, grabbing;
 }
 
 /* Loading cursor for game actions */
 .choice-button.loading,
 .reset-button.loading,
 .play-again-button.loading {
-    cursor: wait;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="%236C5CE7"/><circle cx="8" cy="8" r="1.5" fill="white"/><animateTransform attributeName="transform" type="rotate" values="0 8 8;360 8 8" dur="1s" repeatCount="indefinite"/></svg>') 8 8, wait;
 }
 
 /* Win state cursor */
 .result-display.win {
-    cursor: default;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="%232ECC71"/><circle cx="8" cy="8" r="1.5" fill="white"/></svg>') 8 8, default;
 }
 
 /* Lose state cursor */
 .result-display.lose {
-    cursor: default;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="%23E74C3C"/><circle cx="8" cy="8" r="1.5" fill="white"/></svg>') 8 8, default;
 }
 
 /* Tie state cursor */
 .result-display.tie {
-    cursor: default;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" fill="%23F39C12"/><circle cx="8" cy="8" r="1.5" fill="white"/></svg>') 8 8, default;
 }
